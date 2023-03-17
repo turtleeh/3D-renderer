@@ -4,10 +4,10 @@ from mouse import *
 from keyboard import *
 
 root=Tk()
-root.attributes("-fullscreen",True)
 root.config(bg="black")
-height=1920
-width=1080
+root.attributes("-fullscreen",True)
+height=root.winfo_screenheight()
+width=root.winfo_screenwidth()
 cam=Canvas(root,height=1920,width=1080*2,bg='black')
 cam.pack()
 c="000000"
@@ -23,42 +23,40 @@ g=[get_position()[0],get_position()[1]]
 print (g,type(g))
 def getrot():
      global g
-     t[0]=(get_position()[0]-g[0])/1.1
-     t[1]=(get_position()[1]-g[1])/1.1
-     if g[0]==width and g[1]==height:
-          move(0,0)
-     elif g[0]==width and g[1]==0:
-          move(0,height) 
-     elif g[0]==0 and g[1]==height:
-          move(width,0)
-     elif g[0]==g[1]==0:
-          move(width,height)
-     elif g[0]==0:
-          for i in range(v):
-               h=[float(point_projected(x[i],y[i],z[i])[0]-400-t[0]),float(point_projected(x[i],y[i],z[i])[1]-400-t[1])]
-               y[i]=h[1]*(z[i]+f)/f
-          move(width,g[1])
-     elif g[1]==0:
-          for i in range(v):
-               h=[float(point_projected(x[i],y[i],z[i])[0]-400-t[0]),float(point_projected(x[i],y[i],z[i])[1]-400-t[1])]
-               x[i]=h[0]*(z[i]+f)/f
-          move(g[0],height)
-     elif g[0]==width:
-          for i in range(v):
-               h=[float(point_projected(x[i],y[i],z[i])[0]-400-t[0]),float(point_projected(x[i],y[i],z[i])[1]-400-t[1])]
-               y[i]=h[1]*(z[i]+f)/f
-          move(0,g[1])
-     elif g[1]==height:
-          for i in range(v):
-               h=[float(point_projected(x[i],y[i],z[i])[0]-400-t[0]),float(point_projected(x[i],y[i],z[i])[1]-400-t[1])]
-               x[i]=h[0]*(z[i]+f)/f
-          move(g[0],0)
-     else:
-          for i in range(v):
-               h=[float(point_projected(x[i],y[i],z[i])[0]-400-t[0]),float(point_projected(x[i],y[i],z[i])[1]-400-t[1])]
-               y[i]=h[1]*(z[i]+f)/f
-               x[i]=h[0]*(z[i]+f)/f
-     g=[get_position()[0],get_position()[1]]
+     if is_pressed('²'):
+          t[0]=(get_position()[0]-g[0])/1.1
+          t[1]=(get_position()[1]-g[1])/1.1
+          if g[0]==width-1:
+               for i in range(v):
+                    h=[float(point_projected(x[i],y[i],z[i])[0]-400-t[0]),float(point_projected(x[i],y[i],z[i])[1]-400-t[1])]
+                    y[i]=h[1]*(z[i]+f)/f
+               move(1,g[1])
+          elif g[0]==0:
+               for i in range(v):
+                    h=[float(point_projected(x[i],y[i],z[i])[0]-400-t[0]),float(point_projected(x[i],y[i],z[i])[1]-400-t[1])]
+                    x[i]=h[0]*(z[i]+f)/f
+               move(width,g[1])
+          else:
+               for i in range(v):
+                    h=[float(point_projected(x[i],y[i],z[i])[0]-400-t[0]),float(point_projected(x[i],y[i],z[i])[1]-400-t[1])]
+                    y[i]=h[1]*(z[i]+f)/f
+                    x[i]=h[0]*(z[i]+f)/f
+          if g[1]==height-1:
+               for i in range(v):
+                    h=[float(point_projected(x[i],y[i],z[i])[0]-400-t[0]),float(point_projected(x[i],y[i],z[i])[1]-400-t[1])]
+                    x[i]=h[0]*(z[i]+f)/f
+               move(g[0],1)
+          elif g[1]==0:
+               for i in range(v):
+                    h=[float(point_projected(x[i],y[i],z[i])[0]-400-t[0]),float(point_projected(x[i],y[i],z[i])[1]-400-t[1])]
+                    x[i]=h[0]*(z[i]+f)/f
+               move(g[0],height)
+          else:
+               for i in range(v):
+                    h=[float(point_projected(x[i],y[i],z[i])[0]-400-t[0]),float(point_projected(x[i],y[i],z[i])[1]-400-t[1])]
+                    y[i]=h[1]*(z[i]+f)/f
+                    x[i]=h[0]*(z[i]+f)/f
+          g=[get_position()[0],get_position()[1]]
 def right():
      if is_pressed("z"):
           for i in range(v):
