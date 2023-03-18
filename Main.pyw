@@ -36,11 +36,6 @@ def getrot():
                     h=[float(point_projected(x[i],y[i],z[i])[0]-400-t[0]),float(point_projected(x[i],y[i],z[i])[1]-400-t[1])]
                     x[i]=h[0]*(z[i]+f)/f
                move(width,g[1])
-          else:
-               for i in range(v):
-                    h=[float(point_projected(x[i],y[i],z[i])[0]-400-t[0]),float(point_projected(x[i],y[i],z[i])[1]-400-t[1])]
-                    y[i]=h[1]*(z[i]+f)/f
-                    x[i]=h[0]*(z[i]+f)/f
           if g[1]==height-1:
                for i in range(v):
                     h=[float(point_projected(x[i],y[i],z[i])[0]-400-t[0]),float(point_projected(x[i],y[i],z[i])[1]-400-t[1])]
